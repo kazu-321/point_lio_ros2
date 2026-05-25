@@ -29,6 +29,7 @@ std::vector<double> extrinT;
 std::vector<double> extrinR;
 bool runtime_pos_log, pcd_save_en, path_en, extrinsic_est_en = true;
 bool scan_pub_en, scan_body_pub_en;
+std::string pcd_save_path;
 shared_ptr<Preprocess> p_pre;
 double time_lag_imu_to_lidar = 0.0;
 
@@ -93,6 +94,7 @@ void readParameters(shared_ptr<rclcpp::Node> &nh) {
     nh->declare_parameter<bool>("runtime_pos_log_enable", false);
     nh->declare_parameter<bool>("pcd_save.pcd_save_en", false);
     nh->declare_parameter<int>("pcd_save.interval", -1);
+    nh->declare_parameter<std::string>("pcd_save.path", std::string("/tmp/pointcloud.pcd"));
 
     // 使用get_parameter方法获取参数值
     nh->get_parameter("odom_only", odom_only);
@@ -153,5 +155,6 @@ void readParameters(shared_ptr<rclcpp::Node> &nh) {
     nh->get_parameter("runtime_pos_log_enable", runtime_pos_log);
     nh->get_parameter("pcd_save.pcd_save_en", pcd_save_en);
     nh->get_parameter("pcd_save.interval", pcd_save_interval);
+    nh->get_parameter("pcd_save.path", pcd_save_path);
 }
 
